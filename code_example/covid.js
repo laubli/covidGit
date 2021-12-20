@@ -1,5 +1,5 @@
 // TODO
-// en pluse de la selection du nombre de pays, afficher un graphe en 2 dimensions permettant
+// en plus de la selection du nombre de pays, afficher un graphe en 2 dimensions permettant
 // d'afficher pour chaque pays le nombre de deces ou de cas de covid en abscisse et le
 // PIB par habitant en ordonnees
 

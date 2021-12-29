@@ -1,4 +1,7 @@
+import * as Country from './country.js';
+
 import * as Display from '../vue/display.js';
+
 import * as ISO from '../modele/countryISO.js';
 import * as GDB from '../modele/pibCountry.js';
 import * as CovidData from '../modele/statsCovid.js';

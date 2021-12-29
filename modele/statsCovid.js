@@ -1,5 +1,5 @@
 const UrlApiCovid = "https://api.covid19api.com/total/country/"
-const InfoEnum = {
+export const InfoEnum = {
     DEATHS: "Deaths",
     CONFIRMED: "Confirmed"
 }

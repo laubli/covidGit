@@ -1,16 +1,10 @@
 const UrlApiIso = "../data/iso2And3.json";
 
 function getISO3(countryISO2, methodToExecute) {
-    fetch(UrlApiIso,
-        {
-            method: 'get',
-            header: {
-            'Access-Control-Allow-Origin':'*',
-            }
-        })
+    fetch(UrlApiIso)
     .then(response => response.json())
     .then(response => {
-        methodToExecute(response);
+        methodToExecute(response[countryISO2]);
     })
     .catch(error => alert(error));
 }

@@ -1,4 +1,8 @@
-function askNbCountries() {
+const TABLE = document.createElement('table');
+const TABLE_ID = 'Table';
+const CONTENT_CLASS = 'Content';
+
+export function askNbCountries() {
     const txt = document.createElement('p');
     txt.appendChild(document.createTextNode('Nb. de pays'));
     document.body.appendChild(txt);
@@ -6,55 +10,76 @@ function askNbCountries() {
     const input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('id', 'nbCountries');
-    input.setAttribute('palceholder', 'Combien de pays afficher ?');
+    input.setAttribute('palceholder', 'Combien de pays afficher ?'); // Todo Placeholder doesn't display anything
     document.body.appendChild(input);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-// Todo Mettre le contenu du tableau dans une DIV pour qu'on puisse facilement supprimer le contenu
+export function tableHeader() {
+    // Initialisation of the table, header row and its columns
+    TABLE.setAttribute('id', TABLE_ID);
+    TABLE.style.border = '1px solid black';
 
-function tableHeader() {
+    const rowHeader = TABLE.insertRow();
 
-}
-
-// Renommer en "tableContent"
-function table(nbContries, pictures, names, cases, deaths, pibHab) {
-    var table = document.createElement('table');
-
-    var rowHeader = document.createElement('tr');
-    var headerPictures = document.createElement('th');
-    var headerNames = document.createElement('th');
+    const headerPictures = rowHeader.insertCell();
+    const headerNames = rowHeader.insertCell();
+    const headerCases = rowHeader.insertCell();
+    const headerDeaths = rowHeader.insertCell();
+    const headerPibHab = rowHeader.insertCell();
+    
+    // Columns content
     headerNames.innerHTML = "Pays";
-    var headerCases = document.createElement('th');
     headerCases.innerHTML = "Total des cas";
-    var headerDeaths = document.createElement('th');
     headerDeaths.innerHTML = "Décès";
-    var headerPibHab = document.createElement('th');
     headerPibHab.innerHTML = "PIB/hab.";
 
-    rowHeader.appendChild(headerPictures);
-    rowHeader.appendChild(headerNames);
-    rowHeader.appendChild(headerCases);
-    rowHeader.appendChild(headerDeaths);
-    rowHeader.appendChild(headerPibHab);
+    // Columns style
+    headerPictures.style.border = '1px solid black';
+    headerNames.style.border = '1px solid black';
+    headerCases.style.border = '1px solid black';
+    headerDeaths.style.border = '1px solid black';
+    headerPibHab.style.border = '1px solid black';
 
-    for(var i = 0; i < nbContries; i++) {
-        // Todo : Ajouter tous les autres elements du tableau
+    // Add Table to HTML page
+    document.body.appendChild(TABLE);
+}
+
+export function addContriesInfos(nbCountries, flagPicture, name, confirmed, deaths, gdpPerHab) {
+    // Initialisation of the rows and its columns
+    for(var i = 0; i < nbCountries; i++) {
+        const row = TABLE.insertRow();
+        row.setAttribute('class', CONTENT_CLASS);
+
+        const cellFlagPicture = row.insertCell();
+        const cellName = row.insertCell();
+        const cellConfirmed = row.insertCell();
+        const cellDeaths = row.insertCell();
+        const cellGdbPerHab = row.insertCell();
+
+        // Columns content
+        // Todo cellFlagPicture content
+        // SI BESOIN: MODIFIER CES QUELQUES LIGNES DE CODE POUR SI + FACILE POUR LE CONTROLER
+        cellName.innerText = name[i];
+        cellConfirmed.innerText = confirmed[i];
+        cellDeaths.innerText = deaths[i];
+        cellGdbPerHab.innerText = gdpPerHab[i];
     }
 }
 
-function resetTable() {
-    // Supprimer le contenu du tableau
+export function resetTableContent() {
+    const elementsToDelete = document.getElementsByClassName(CONTENT_CLASS);
+    while(elementsToDelete[0]) {
+        elementsToDelete[0].parentNode.removeChild(elementsToDelete[0]);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-function chart() {
+export function chart() {
     const div = document.createElement('div');
     div.setAttribute('id', 'chart_div');
     div.setAttribute('style', 'width: 900px; height: 500px;');
     document.body.appendChild(input);
 }
-
-export {askNbCountries, table, chart}

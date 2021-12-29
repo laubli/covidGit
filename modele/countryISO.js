@@ -14,8 +14,4 @@ function getISO3(countryISO2, methodToExecute) {
     .catch(error => alert(error));
 }
 
-getISO3('FR', (infos) => {
-    console.log(infos);
-})
-
 export {getISO3}

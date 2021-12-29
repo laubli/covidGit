@@ -1,5 +1,8 @@
+export const INPUT_ID = 'nbCountries';
+
 const TABLE = document.createElement('table');
 const TABLE_ID = 'Table';
+
 const CONTENT_CLASS = 'Content';
 const URL_API_FLAG = "https://www.countryflagicons.com/SHINY/32/";
 
@@ -10,7 +13,7 @@ export function askNbCountries() {
 
     const input = document.createElement('input');
     input.setAttribute('type', 'text');
-    input.setAttribute('id', 'nbCountries');
+    input.setAttribute('id', INPUT_ID);
     input.setAttribute('placeholder', 'Combien de pays afficher ?'); // Todo Placeholder doesn't display anything
     document.body.appendChild(input);
 }
@@ -59,10 +62,7 @@ export function addContriesInfos(nbCountries, iso2Name, fullName, confirmed, dea
         const cellDeaths = row.insertCell();
         const cellGdbPerHab = row.insertCell();
 
-        // Columns content
-        // Todo cellFlagPicture content
-        // SI BESOIN: MODIFIER CES QUELQUES LIGNES DE CODE POUR SI + FACILE POUR LE CONTROLER
-        
+        // Columns content        
         const flagPicture = document.createElement('img');
         flagPicture.setAttribute('src', URL_API_FLAG + iso2Name[i] + '.png');
         flagPicture.setAttribute('height', '32');

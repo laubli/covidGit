@@ -1,6 +1,7 @@
 const TABLE = document.createElement('table');
 const TABLE_ID = 'Table';
 const CONTENT_CLASS = 'Content';
+const URL_API_FLAG = "https://www.countryflagicons.com/SHINY/32/";
 
 export function askNbCountries() {
     const txt = document.createElement('p');
@@ -46,7 +47,7 @@ export function tableHeader() {
     document.body.appendChild(TABLE);
 }
 
-export function addContriesInfos(nbCountries, flagPicture, name, confirmed, deaths, gdpPerHab) {
+export function addContriesInfos(nbCountries, iso2Name, fullName, confirmed, deaths, gdpPerHab) {
     // Initialisation of the rows and its columns
     for(var i = 0; i < nbCountries; i++) {
         const row = TABLE.insertRow();
@@ -61,7 +62,14 @@ export function addContriesInfos(nbCountries, flagPicture, name, confirmed, deat
         // Columns content
         // Todo cellFlagPicture content
         // SI BESOIN: MODIFIER CES QUELQUES LIGNES DE CODE POUR SI + FACILE POUR LE CONTROLER
-        cellName.innerText = name[i];
+        
+        const flagPicture = document.createElement('img');
+        flagPicture.setAttribute('src', URL_API_FLAG + iso2Name[i] + '.png');
+        flagPicture.setAttribute('height', '32');
+        flagPicture.setAttribute('width', '32');
+        cellFlagPicture.appendChild(flagPicture);
+
+        cellName.innerText = fullName[i];
         cellConfirmed.innerText = confirmed[i];
         cellDeaths.innerText = deaths[i];
         cellGdbPerHab.innerText = gdpPerHab[i];

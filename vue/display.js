@@ -11,7 +11,7 @@ export function askNbCountries() {
     const input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('id', 'nbCountries');
-    input.setAttribute('palceholder', 'Combien de pays afficher ?'); // Todo Placeholder doesn't display anything
+    input.setAttribute('placeholder', 'Combien de pays afficher ?'); // Todo Placeholder doesn't display anything
     document.body.appendChild(input);
 }
 

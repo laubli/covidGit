@@ -1,0 +1,41 @@
+body {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-right: 10px;
+}
+
+div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+input {
+    min-width: 160px;
+    text-align: center;
+}
+
+table {
+    flex: 50%;
+    table-layout: fixed;
+    border: 1px solid #b0b0b0;
+    border-collapse: collapse;
+    border-bottom: 1px solid #b0b0b0 !important;
+}
+
+.rowClass {
+    border: 1px solid #b0b0b0;
+    border-bottom: 1px solid #b0b0b0 !important;
+    height: 40px;
+}
+
+.imgCell {
+    text-align: center;
+    border: 1px solid #b0b0b0;
+}

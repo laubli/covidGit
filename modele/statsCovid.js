@@ -24,3 +24,23 @@ function getCountryInfo(oneCountryName, infoToGet, methodToExecute) {
 }
 
 export{getCountryInfo}
+
+/**
+ * Execute a method with the asked information using the covid API
+ * @param {*} oneCountryName A country name with this format: "south-africa"
+ * @param {*} infoToGet An information like "Confirmed", "Deaths"...
+ * @param {*} info l'info récupéré
+ */
+ export function getCountryInfo2(oneCountryName, infoToGet, info) {
+    fetch(UrlApiCovid + oneCountryName)
+        .then(response => response.json())
+        .then(response => {
+            var numberRelatedToInfo = 0;
+            for(var i = 0; i < response.length; i++) {
+                numberRelatedToInfo += response[i][infoToGet];
+            }
+            info = numberRelatedToInfo;
+            return numberRelatedToInfo;
+        })
+        .catch(error => alert(error))
+}

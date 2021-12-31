@@ -88,6 +88,40 @@ export function addContriesInfos(nbCountries, iso2Name, fullName, confirmed, dea
     }
 }
 
+export function addContries(countries) {
+    // Initialisation of the rows and its columns
+    var country = countries;
+    for(var i = 0; i < country.lenght; i++) {
+        const row = tbody.insertRow();
+        row.setAttribute('class', CONTENT_CLASS);
+
+        const cellFlagPicture = row.insertCell();
+        const cellName = row.insertCell();
+        const cellConfirmed = row.insertCell();
+        const cellDeaths = row.insertCell();
+        const cellGdbPerHab = row.insertCell();
+
+        // Class name        
+        cellFlagPicture.className = 'imgCell';
+        cellName.className = 'rowClass';
+        cellConfirmed.className = 'rowClass';
+        cellDeaths.className = 'rowClass';
+        cellGdbPerHab.className = 'rowClass';
+
+        // Columns content        
+        const flagPicture = document.createElement('img');
+        flagPicture.setAttribute('src', URL_API_FLAG + country[i].iso2Name + '.png');
+        flagPicture.setAttribute('height', '32');
+        flagPicture.setAttribute('width', '32');
+        cellFlagPicture.appendChild(flagPicture);
+
+        cellName.innerText = country[i].fullName;
+        cellConfirmed.innerText = country[i].confirmed;
+        cellDeaths.innerText = country[i].deaths;
+        cellGdbPerHab.innerText = country[i].gdpPerHab;
+    }
+}
+
 export function resetTableContent() {
     const elementsToDelete = document.getElementsByClassName(CONTENT_CLASS);
     while(elementsToDelete[0]) {

@@ -25,6 +25,11 @@ function getCountryInfo(oneCountryName, infoToGet, methodToExecute) {
 
 export{getCountryInfo}
 
+var test = "south-africa"
+getCountryInfo(test, InfoEnum.DEATHS, (info) => {
+    console.log(info);
+});
+
 /**
  * Execute a method with the asked information using the covid API
  * @param {*} oneCountryName A country name with this format: "south-africa"

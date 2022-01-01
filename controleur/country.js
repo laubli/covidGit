@@ -10,8 +10,6 @@ export class Country {
         this._iso2;
         this._iso3;
 
-        this._flag;
-
         this._totalDeaths;
         this._totalConfirmed;
         this._gdpPerHab;
@@ -28,10 +26,6 @@ export class Country {
 
     get iso3() {
         return this._iso3;
-    }
-
-    get flag() {
-        return this._flag;
     }
 
     get totalDeaths() {
@@ -58,11 +52,7 @@ export class Country {
     set iso3(iso3) {
         this._iso3 = iso3;
     }
-
-    set flag(flag) {
-        this._flag = flag;
-    }
-
+    
     set totalDeaths(totalDeaths) {
         this._totalDeaths = totalDeaths;
     }

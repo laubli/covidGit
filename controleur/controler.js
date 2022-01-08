@@ -27,6 +27,12 @@ function getNumberOfCountries() {
 
 function processCountries() {
     var nbCountries = getNumberOfCountries();
+    if(nbCountries != "" && !(nbCountries > 0 && nbCountries <= 20)) {
+        alert("Veuillez entrer un nombre de pays entre 1 et 20");
+        return;
+    }
+
+
     if(nbCountries == "") {
         getRandomCountries(nbCountriesToBeginWith);
         return;

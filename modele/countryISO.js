@@ -1,8 +1,7 @@
 import { Country } from "../controleur/country.js";
 import * as stat from "./statsCovid.js";
-import { getGDPJSON } from "./pibCountry.js";
 
-const UrlApiIso2To3 = "../data/iso2And3.json";
+const UrlApiIso2To3 = "https://api.allorigins.win/raw?url=http://country.io/iso3.json";
 const UrlApiFullNameToIso2 = "https://api.covid19api.com/countries";
 
 /**

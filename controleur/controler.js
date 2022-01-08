@@ -5,13 +5,15 @@ import * as STATS from '../modele/statsCovid.js';
 import { Country } from './country.js';
 
 const nbCountriesID = Display.INPUT_ID;
+const nbCountriesToBeginWith = 5;
 var countryList = [];
 
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
     Display.askNbCountries();
-    document.getElementById(nbCountriesID).addEventListener('change', getRandomCountries);
+    processCountries();
+    document.getElementById(nbCountriesID).addEventListener('change', processCountries);
 
     Display.tableHeader();
 }
@@ -23,9 +25,17 @@ function getNumberOfCountries() {
     return nbCountries;
 }
 
-function getRandomCountries() {
+function processCountries() {
     var nbCountries = getNumberOfCountries();
+    if(nbCountries == "") {
+        getRandomCountries(nbCountriesToBeginWith);
+        return;
+    }
 
+    getRandomCountries(nbCountries);
+}
+
+function getRandomCountries(nbCountries) {
     ISO.getRandomCountriesJSON(nbCountries, (countryJSON) => {
         for(var i = 0; i < countryJSON.length; i++) {
             var countryToAdd = new Country();

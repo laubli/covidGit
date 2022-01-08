@@ -1,20 +1,22 @@
 import { Country } from "../controleur/country.js";
 import * as stat from "./statsCovid.js";
-import { getGDP } from "./pibCountry.js";
+import { getGDPJSON } from "./pibCountry.js";
 
 const UrlApiIso2To3 = "../data/iso2And3.json";
 const UrlApiFullNameToIso2 = "https://api.covid19api.com/countries";
 
 /**
  * Get the ISO3 code of a country based on it's ISO2 code and execute a method with this code
- * @param {*} countryISO2 ISO2 code of a  country (e.g. for France: 'FR')
+ * @param {*} countryISO2 ISO2 list code of a countries (e.g. for France: 'FR')
  * @param {*} methodToExecute Execute the method with the given information. The information is a ISO3 code (e.g. for FR: 'FRA')
  */
-export function getISO3(countryISO2, methodToExecute) {
+export function getISO3JSON(countryISO2, methodToExecute) {
     fetch(UrlApiIso2To3)
         .then(response => response.json())
         .then(response => {
-            methodToExecute(response[countryISO2]);
+            var result = [];
+            countryISO2.forEach(iso2 => result.push(response[iso2]));
+            methodToExecute(result);
         })
         .catch(error => alert(error));
 }
@@ -23,9 +25,8 @@ export function getISO3(countryISO2, methodToExecute) {
 /**
  * Get randomly the name, slug name and ISO2 code of X countries
  * @param {*} nbCountries Number of countries to get
- * @param {*} methodToExecute Execute the method with the given information. The informations are X names, slug names and ISO2 code.
  */
-export function getRandomsCountriesNameAndISO2(nbCountries, methodToExecute) {
+export function getRandomCountriesJSON(nbCountries, methodToExecute) {
     fetch(UrlApiFullNameToIso2)
         .then(response => response.json())
         .then(response => {
@@ -62,10 +63,10 @@ export function getRandomsCountries(nbCountries, countries) {
     fetch(UrlApiFullNameToIso2)
         .then(response => response.json())
         .then(response => {
-            var result = [];
+            const myMap = new Map();
 
             // X countries are added to the result
-            while (countries.length != nbCountries) {
+            for(var i = 0; i < nbCountries; i++) {
                 // A random country is selected
                 var tpmCountry = response[Math.floor(Math.random() * response.length)];
 
@@ -80,7 +81,6 @@ export function getRandomsCountries(nbCountries, countries) {
                 if (!alreadyPicked) {
                     console.log(tpmCountry);
                     let countryToAdd = new Country();
-                    const myMap = new Map();
 
                     //Set the name of the country
                     myMap.set('fullName', tpmCountry.Country);
@@ -89,7 +89,7 @@ export function getRandomsCountries(nbCountries, countries) {
                     myMap.set('iso2', tpmCountry.ISO2);
 
                     //set the iso3 of the country
-                    getISO3(tpmCountry.ISO2, (valeur) => {
+                    getISO3JSON(tpmCountry.ISO2, (valeur) => {
                         myMap.set('iso3', valeur);
                         //set the gross domestic product of the country
                         console.log(valeur);
@@ -116,6 +116,6 @@ export function getRandomsCountries(nbCountries, countries) {
                     countryToAdd.gdpPerhab = myMap.get('gdpPerhab');
                 }
             }
-            return result;
+            return myMap;
         });
 }

@@ -26,7 +26,7 @@ function urlToFetchGDP(listCountry) {
  * @param {*} listCountry Array of country. Each country follow the iso3 rule (e.g: 'France' --> 'FRA')
  * @param {*} methodToExecute Execute the method with a JSON in parameter. This JSON is composed of key values (ISO3 country ; GDP)
  */
- export function getGDP(listCountry, methodToExecute) {
+ export function getGDPJSON(listCountry, methodToExecute) {
     var url = urlToFetchGDP(listCountry);
 
     // The result is a JSON with the key being the name of the country and the value it's GDP
@@ -39,7 +39,7 @@ function urlToFetchGDP(listCountry) {
                 // For the X country of the country array, we select the following value: "X:0:0:0"
                 result[listCountry[i]] = response["dataSets"]["0"]["observations"][i + ":0:0:0"]["0"];
             }
-            console.log(result);
             methodToExecute(result);
-        });
+        })
+        .catch(() => methodToExecute(undefined));
 }

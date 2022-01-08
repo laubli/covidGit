@@ -55,71 +55,35 @@ export function tableHeader() {
     document.body.appendChild(TABLE);
 }
 
-export function addContriesInfos(nbCountries, iso2Name, fullName, confirmed, deaths, gdpPerHab) {
+export function addContriesInfos(iso2Name, fullName, confirmed, deaths, gdpPerHab) {
     // Initialisation of the rows and its columns
-    for(var i = 0; i < nbCountries; i++) {
-        const row = tbody.insertRow();
-        row.setAttribute('class', CONTENT_CLASS);
+    const row = tbody.insertRow();
+    row.setAttribute('class', CONTENT_CLASS);
 
-        const cellFlagPicture = row.insertCell();
-        const cellName = row.insertCell();
-        const cellConfirmed = row.insertCell();
-        const cellDeaths = row.insertCell();
-        const cellGdbPerHab = row.insertCell();
+    const cellFlagPicture = row.insertCell();
+    const cellName = row.insertCell();
+    const cellConfirmed = row.insertCell();
+    const cellDeaths = row.insertCell();
+    const cellGdbPerHab = row.insertCell();
 
-        // Class name        
-        cellFlagPicture.className = 'imgCell';
-        cellName.className = 'rowClass';
-        cellConfirmed.className = 'rowClass';
-        cellDeaths.className = 'rowClass';
-        cellGdbPerHab.className = 'rowClass';
+    // Class name        
+    cellFlagPicture.className = 'imgCell';
+    cellName.className = 'rowClass';
+    cellConfirmed.className = 'rowClass';
+    cellDeaths.className = 'rowClass';
+    cellGdbPerHab.className = 'rowClass';
 
-        // Columns content        
-        const flagPicture = document.createElement('img');
-        flagPicture.setAttribute('src', URL_API_FLAG + iso2Name[i] + '.png');
-        flagPicture.setAttribute('height', '32');
-        flagPicture.setAttribute('width', '32');
-        cellFlagPicture.appendChild(flagPicture);
+    // Columns content        
+    const flagPicture = document.createElement('img');
+    flagPicture.setAttribute('src', URL_API_FLAG + iso2Name + '.png');
+    flagPicture.setAttribute('height', '32');
+    flagPicture.setAttribute('width', '32');
+    cellFlagPicture.appendChild(flagPicture);
 
-        cellName.innerText = fullName[i];
-        cellConfirmed.innerText = confirmed[i];
-        cellDeaths.innerText = deaths[i];
-        cellGdbPerHab.innerText = gdpPerHab[i];
-    }
-}
-
-export function addContries(countries) {
-    // Initialisation of the rows and its columns
-    var country = countries;
-    for(var i = 0; i < country.lenght; i++) {
-        const row = tbody.insertRow();
-        row.setAttribute('class', CONTENT_CLASS);
-
-        const cellFlagPicture = row.insertCell();
-        const cellName = row.insertCell();
-        const cellConfirmed = row.insertCell();
-        const cellDeaths = row.insertCell();
-        const cellGdbPerHab = row.insertCell();
-
-        // Class name        
-        cellFlagPicture.className = 'imgCell';
-        cellName.className = 'rowClass';
-        cellConfirmed.className = 'rowClass';
-        cellDeaths.className = 'rowClass';
-        cellGdbPerHab.className = 'rowClass';
-
-        // Columns content        
-        const flagPicture = document.createElement('img');
-        flagPicture.setAttribute('src', URL_API_FLAG + country[i].iso2Name + '.png');
-        flagPicture.setAttribute('height', '32');
-        flagPicture.setAttribute('width', '32');
-        cellFlagPicture.appendChild(flagPicture);
-
-        cellName.innerText = country[i].fullName;
-        cellConfirmed.innerText = country[i].confirmed;
-        cellDeaths.innerText = country[i].deaths;
-        cellGdbPerHab.innerText = country[i].gdpPerHab;
-    }
+    cellName.innerText = fullName;
+    cellConfirmed.innerText = confirmed;
+    cellDeaths.innerText = deaths;
+    cellGdbPerHab.innerText = gdpPerHab;
 }
 
 export function resetTableContent() {

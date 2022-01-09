@@ -16,6 +16,7 @@ function init() {
     document.getElementById(nbCountriesID).addEventListener('change', processCountries);
 
     Display.tableHeader();
+    Display.chart();
 }
 
 function getNumberOfCountries() {

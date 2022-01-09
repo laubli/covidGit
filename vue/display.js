@@ -1,11 +1,19 @@
 export const INPUT_ID = 'nbCountries';
 
-const TABLE = document.createElement('table'),
+var TABLE = document.createElement('table'),
             thead = TABLE.createTHead(), // thead element
             thRow = thead.insertRow(), // trow element
             tbody = TABLE.createTBody(); // tbody element;
 
 const TABLE_ID = 'Table';
+
+var recupib = [];
+var recuptabPays = [];
+var tabPays;
+var nbVoulue =10;
+var nomPays = [];
+var FusionPibPays = [["PIB", "NbCas", {'type': 'string', 'role': 'tooltip', 'p': {'html': true}}]];
+
 
 const CONTENT_CLASS = 'Content';
 const URL_API_FLAG = "https://www.countryflagicons.com/SHINY/32/";
@@ -29,6 +37,7 @@ export function askNbCountries() {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 export function tableHeader() {
+    
     // Initialisation of the table, header row and its columns
     TABLE.setAttribute('id', TABLE_ID);
 
@@ -52,10 +61,15 @@ export function tableHeader() {
     headerPibHab.className = 'rowClass';
 
     // Add Table to HTML page
-    document.body.appendChild(TABLE);
+    const div = document.createElement('div');
+    div.setAttribute('class', 'row');
+    div.setAttribute('id', 'div_row');
+    document.body.appendChild(div);
+    div.appendChild(TABLE);
 }
 
 export function addContriesInfos(iso2Name, fullName, confirmed, deaths, gdpPerHab) {
+
     // Initialisation of the rows and its columns
     const row = tbody.insertRow();
     row.setAttribute('class', CONTENT_CLASS);
@@ -84,6 +98,21 @@ export function addContriesInfos(iso2Name, fullName, confirmed, deaths, gdpPerHa
     cellConfirmed.innerText = confirmed;
     cellDeaths.innerText = deaths;
     cellGdbPerHab.innerText = gdpPerHab;
+
+
+    recupib.push(gdpPerHab);
+    nomPays.push(fullName);
+    recuptabPays.push(confirmed);
+
+
+    for(var i =0; recupib.length >i ; i ++ ){
+        FusionPibPays.push([recupib[i],recuptabPays[i], "<div><h4>" + nomPays[i] + "</h4></div>"]);
+    }
+    drawChart(FusionPibPays);
+
+
+    $("#Table").DataTable().ajax.reload();
+
 }
 
 export function resetTableContent() {
@@ -98,9 +127,30 @@ export function resetTableContent() {
 export function chart() {
     const div = document.createElement('div');
     div.setAttribute('id', 'chart_div');
-    div.setAttribute('style', 'width: 900px; height: 500px;');
-    document.body.appendChild(input);
+    div.setAttribute('style', 'width: 900px; height: 500px;');    
+    document.getElementById("div_row").appendChild(div);
 }
+
+google.charts.load('current', {'packages':['corechart']});
+  function drawChart(FusionPibPays) {
+        google.charts.setOnLoadCallback(
+
+                 function() {
+                 console.log("debut");
+                    var data = google.visualization.arrayToDataTable(FusionPibPays);
+                            var options = {
+                                title: 'PIB en fonction du nombre de cas',
+                                hAxis: {title: 'PIB', minValue: 0, maxValue: 10},
+                                vAxis: {title: 'NB de cas', minValue: 0, maxValue: 15},
+                                tooltip: { isHtml: true },
+                                legend: 'none'
+                            };
+                             var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+                             chart.draw(data, options);
+                }
+          );
+        }
+
 
 $(document).ready(function() {
     $('#Table').DataTable({
@@ -110,6 +160,6 @@ $(document).ready(function() {
         "searching": false,
         "aoColumnDefs": [
             { 'bSortable': false, 'aTargets': [ 0 ] } 
-        ]
+        ],
     });
 } );

@@ -11,18 +11,15 @@ label {
     margin-right: 10px;
 }
 
-div {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 input {
     min-width: 160px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 table {
-    flex: 50%;
+    width: 50% !important;
+    margin: 0px !important;
     table-layout: fixed;
     border: 1px solid #b0b0b0;
     border-collapse: collapse;
@@ -38,4 +35,12 @@ table {
 .imgCell {
     text-align: center;
     border: 1px solid #b0b0b0;
+}
+
+#chart_div {
+    width: 50% !important;
+}
+
+#div_row {
+    display: flex;
 }

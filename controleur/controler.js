@@ -28,6 +28,12 @@ function getNumberOfCountries() {
 
 function processCountries() {
     var nbCountries = getNumberOfCountries();
+    if(nbCountries != "" && !(nbCountries > 0 && nbCountries <= 20)) {
+        alert("Veuillez entrer un nombre de pays entre 1 et 20");
+        return;
+    }
+
+
     if(nbCountries == "") {
         getRandomCountries(nbCountriesToBeginWith);
         return;
@@ -70,34 +76,28 @@ function getISO3() {
 }
 
 function getGDP() {
-    var iso3List = [];
-    countryList.forEach(country => iso3List.push(country.iso3));
-
-    GDP.getGDPJSON(iso3List, (value) => {
-        countryList.forEach(country => {
+    countryList.forEach(country => {
+        GDP.getGDPJSON(country.iso3, (value) => {
             if(value == undefined) {
                 console.error("GDP not found for " + country.iso3);
-                return;
+            } else {
+                country.gdpPerHab = value;
             }
-            country.gdpPerHab = value[country.iso3];
+            confirmed(country);
         });
-        confirmed();
     });
 }
 
-function confirmed() {
-    countryList.forEach(country => {
-        STATS.getCountryInfo(country.fullName, STATS.InfoEnum.CONFIRMED, (value) => {
-            country.totalConfirmed = value;
-            deaths(country);
-        });
+function confirmed(country) {
+    STATS.getCountryInfo(country.fullName, STATS.InfoEnum.CONFIRMED, (value) => {
+        country.totalConfirmed = value;
+        deaths(country);
     });
 }
 
 function deaths(country) {
     STATS.getCountryInfo(country.fullName, STATS.InfoEnum.DEATHS, (value) => {
         country.totalDeaths = value;
-        console.log(country);
         Display.addContriesInfos(country.iso2, country.fullName,
                                 country.totalConfirmed, country.totalDeaths, country.gdpPerHab);
     });

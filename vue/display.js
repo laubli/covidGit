@@ -110,9 +110,6 @@ export function addContriesInfos(iso2Name, fullName, confirmed, deaths, gdpPerHa
     }
     drawChart(FusionPibPays);
 
-
-    $("#Table").DataTable().ajax.reload();
-
 }
 
 export function resetTableContent() {

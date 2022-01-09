@@ -1,19 +1,33 @@
-import { etat, toto } from './etat.js';
+const { test, expect } = require("@jest/globals");
+const {
+  getNumberOfCountries,
+  processCountries,
+  getRandomCountries,
+  getISO3,
+  getGDP,
+  confirmed,
+  deaths
+} = require('../controleur/controler');
+const {
+  getISO3JSON,
+  getRandomCountriesJSON
+} = require('../modele/countryISO');
 
-const etatsDeBase =
-  [
-    { codeIso: 'FR', nbDeces: 42, nbCas: 10000 },
-    { codeIso: 'DE', nbDeces: 50, nbCas: 9000 }
-  ];
-
-describe('Stats covid', () => {
-  test('la fonction deces tri par deces', () => {
-    const myEtat = etat(etatsDeBase);
-    myEtat.deces();
-    expect(myEtat.selection[0].codeIso).toBe('DE');
+describe('Country ISO', () => {
+  test('Number of countries', () => {
+    getRandomCountriesJSON(5, (result) => {
+      expect(result.length).toBe(5);
+    });
   });
 
-  test('toto', () => {
-    expect(toto).toBe(12);
+  test('Differents countries only', () => {
+    getRandomCountriesJSON(5, (result) => {
+      var countryList = result;
+      for(var i = 0; i < result.length; i++) {
+        for(var j = 0; j < result.length; j++) {
+          expect(countryList[i] == result[j]).toBeFalsy();
+        }
+      }
+    });
   });
 });

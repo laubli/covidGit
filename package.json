@@ -5,14 +5,15 @@
   "main": "covid.js",
   "scripts": {
     "test": "jest",
-    "watch": "jest --watch"
+    "watch": "jest --env=jsdom"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "7.16.0",
     "@babel/preset-env": "^7.12.7",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
-    "jest": "^26.6.3"
+    "jest": "^27.3.1"
   }
 }
